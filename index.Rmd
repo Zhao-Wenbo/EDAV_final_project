@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission"
+author: "Wenbo Zhao, Junfeng Yan, Navjot Singh"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
