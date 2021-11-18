@@ -1,1 +1,104 @@
 # Missing values
+
+```{r read data}
+df <- read.csv("./WDIData.csv", fileEncoding = "UTF-8-BOM")
+```
+
+## Data Set Selection
+```{r get subset of data}
+useful_indicator = c("Access to electricity (% of population)",
+                     "Adjusted net national income (current US$)",
+                     "Adjusted net national income per capita (current US$)",
+                     "Adjusted savings: carbon dioxide damage (current US$)",
+                     "Agricultural methane emissions (thousand metric tons of CO2 equivalent)",
+                     "Agricultural nitrous oxide emissions (thousand metric tons of CO2 equivalent)",
+                     "CO2 emissions (kg per 2015 US$ of GDP)",
+                     "CO2 emissions (kt)",
+                     "CO2 emissions (metric tons per capita)",
+                     "Educational attainment, at least Bachelor's or equivalent, population 25+, total (%) (cumulative)",
+                     "Educational attainment, at least completed lower secondary, population 25+, total (%) (cumulative)",
+                     "Educational attainment, at least completed post-secondary, population 25+, total (%) (cumulative)",
+                     "Educational attainment, at least completed primary, population 25+ years, total (%) (cumulative)",
+                     "Educational attainment, at least completed short-cycle tertiary, population 25+, total (%) (cumulative)",
+                     "Educational attainment, at least completed upper secondary, population 25+, total (%) (cumulative)",
+                     "Educational attainment, at least Master's or equivalent, population 25+, total (%) (cumulative)",
+                     "Educational attainment, Doctoral or equivalent, population 25+, total (%) (cumulative)",
+                     "Electric power consumption (kWh per capita)",
+                     "GDP (current US$)",
+                     "GDP per capita (current US$)",
+                     "Gini index (World Bank estimate)"
+                     )
+
+column_lite = c("Country.Name", "Indicator.Name", "X1960", "X1970", "X1980", "X1990", "X2000", "X2010", "X2015")
+
+df_lite = df %>% 
+  filter(`Indicator.Name` %in% useful_indicator) %>% 
+  select(all_of(column_lite)) %>% 
+  slice(1030:n())
+```
+
+
+Since the data set is too large, we choose the following indicators
+```{r}
+useful_indicator
+```
+and columns 
+```{r}
+column_lite
+```
+that are helpful for our analysis.
+
+The size of data set is now
+```{r}
+dim(df_lite)
+```
+## Missing values by column
+We first check the number of missing values in every column.
+```{r missing in column}
+colSums(is.na(df_lite)) %>%
+  sort(decreasing = TRUE)
+```
+
+From the result, we can see that `Country.Name` and `Indicator.Name` are fully filled while the values of indicators in each years have many deficiencies. Especially, we the values in early years such as 1960 are missed for almost all cases. This means that we should limit the analysis interval to recent decades to avoid heavily missing data. 
+
+
+## Missing values in Individual Indicators
+After that, we check the number of missing values in each individual indicator.
+
+```{r missing for each indicator}
+source("plot_missing.R")
+for (indicator in useful_indicator) {
+  print(indicator)
+  print(plot_missing(df_lite %>% 
+                       filter(`Indicator.Name` == indicator) %>% 
+                       select(-c("Country.Name", "Indicator.Name"))
+                     ), percent=TRUE)
+}
+```
+
+We can see that the missing conditional among various indicators vary greatly. For example, `Access to electricity (% of population)` indicator is missing for most countries before 1980s and are recorded after 2000s. Also, `CO2 emissions (metric tons per capita)` indicator is complete for most of the countries, which makes it a good analysis target.
+
+## Missing values by country
+At last, we inspect the missing condition for each country. We count the number of missing indicators at each selected time.
+
+```{r}
+
+df_lite_isna <- is.na(df_lite) %>% data.frame()
+df_lite_isna$Country.Name <- factor(df_lite$Country.Name)
+df_lite_isna$Indicator.Name <- df_lite$Indicator.Name
+
+missing_country <-  df_lite_isna %>% 
+  select(-Indicator.Name) %>% 
+  group_by(Country.Name) %>% 
+  summarise(across("X1960":"X2015", sum)) %>% 
+  ungroup()
+
+missing_country <- missing_country %>%
+  cbind(data.frame(mean_missing = rowMeans(missing_country[, -1]))) %>% 
+  arrange(desc(mean_missing))
+
+head(missing_country, 5)
+```
+
+We can see that some countries missed more than 19 indicators out of 21 selected ones. We should choose those countries with high filling percentage as our research target.
+

@@ -2,6 +2,10 @@ introduction
 data-sources
 data-transformation
 missing-values
+data-set-selection
+missing-values-by-column
+missing-values-in-individual-indicators
+missing-values-by-country
 results
 interactive-component
 conclusion
