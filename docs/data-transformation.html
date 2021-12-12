@@ -107,7 +107,7 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
-<p>The importation of data is straight forward using <code>read_csv</code> function is R. We import <code>WDIData.csv</code>, <code>WDISeries.csv</code> and <code>WDICountry.csv</code> as dataframe <code>df_data</code>, <code>df_series</code> and <code>df_countries</code> respectively.</p>
+<p>The importation of data is straight forward using <code>read_csv</code> function is R. We import <code>WDIData.csv</code>, <code>WDISeries.csv</code> and <code>WDICountry.csv</code> as dataframe <code>df_data</code>, <code>df_series</code> and <code>df_countries</code> respectively. Since the country name and series name are repeated to cover every combination, we treat them as factors to ease the operation.</p>
 <p>First, as stated in the previous section, we match the names of series and countries in <code>df_series</code> and <code>df_countries</code> to that in <code>df_data</code> to avoid any potential mismatching issues.</p>
 <p>After that, since there are too many kinds of series included in the data set, we put our focus on the series with <code>Topic</code> in the following list that are related to our research:</p>
 <ul>
