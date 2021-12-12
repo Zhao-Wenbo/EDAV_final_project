@@ -1,1 +1,101 @@
 # Data transformation
+
+```{r}
+
+df_data <- read_csv("./WDI_csv/WDIData.csv")
+df_series <- read_csv("./WDI_csv/WDISeries.csv")
+df_countries <- read_csv("./WDI_csv/WDICountry.csv")
+
+```
+
+The importation of data is straight forward using `read_csv` function is R. We import `WDIData.csv`, `WDISeries.csv` and `WDICountry.csv` as dataframe `df_data`, `df_series` and `df_countries` respectively. 
+
+First, as stated in the previous section, we match the names of series and countries in `df_series` and `df_countries` to that in `df_data` to avoid any potential mismatching issues.
+
+```{r}
+df_series_name <- df_series$`Indicator Name`
+
+modified_df_series_name <- 
+  case_when(
+    df_series_name == "Access to clean fuels and technologies for cooking  (% of population)" ~ "Access to clean fuels and technologies for cooking (% of population)",
+    df_series_name == "Debt service to exports (%)" ~ "Debt service (PPG and IMF only, % of exports of goods, services and primary income)",
+    df_series_name == "Household and NPISHs Final consumption expenditure (annual % growth)" ~ "Households and NPISHs Final consumption expenditure (annual % growth)",
+    df_series_name == "Household and NPISHs Final consumption expenditure (constant LCU)" ~ "Households and NPISHs Final consumption expenditure (constant LCU)",
+    df_series_name == "Household and NPISHs Final consumption expenditure (current LCU)" ~ "Households and NPISHs Final consumption expenditure (current LCU)",
+    df_series_name == "Household and NPISHs Final consumption expenditure (current US$)" ~ "Households and NPISHs Final consumption expenditure (current US$)",
+    df_series_name == "Household final consumption expenditure per capita growth (annual %)" ~ "Households and NPISHs Final consumption expenditure per capita growth (annual %)",
+    df_series_name == "Households and NPISHs final consumption expenditure per capita (constant 2015 US$)" ~ "Households and NPISHs Final consumption expenditure per capita (constant 2015 US$)",
+    df_series_name == "Multidimensional poverty headcount ratio, children (% of child population)" ~ "Multidimensional poverty headcount ratio, children (% of population ages 0-17)",
+    df_series_name == "Multidimensional poverty index, children (scale 0-1)" ~ "Multidimensional poverty index, children (population ages 0-17) (scale 0-1)",
+    df_series_name == "Multidimensional poverty intensity" ~ "Multidimensional poverty intensity (average share of deprivations experienced by the poor)",
+    df_series_name == "Portfolio Investment, net (BoP, current US$)" ~ "Portfolio investment, net (BoP, current US$)",
+    df_series_name == "Present value of external debt (% of exports of goods, services and income)" ~ "Present value of external debt (% of exports of goods, services and primary income)",
+    df_series_name == "Total CO2 emissions (thousand metric tons of CO2 excluding Land-Use Change and Forestry)" ~ "CO2 emissions (kt)",
+    df_series_name == "Total greenhouse gas emissions (thousand metric tons of CO2 equivalent excluding Land-Use Change and Forestry)" ~ "Total greenhouse gas emissions (kt of CO2 equivalent)",
+    df_series_name == "Total methane emissions (thousand metric tons of CO2 equivalent excluding Land-Use Change and Forestry)" ~ "Methane emissions (kt of CO2 equivalent)",
+    df_series_name == "Total nitrous oxide emissions (thousand metric tons of CO2 equivalent excluding Land-Use Change and Forestry)" ~ "Nitrous oxide emissions (thousand metric tons of CO2 equivalent)",
+    TRUE ~ df_series_name
+  )
+
+df_series$`Indicator Name` <- modified_df_series_name
+```
+
+```{r}
+df_countries_names <- df_countries$`Table Name`
+modified_df_countries_names <- 
+  case_when(
+    df_countries_names == "Côte d'Ivoire" ~ "Cote d'Ivoire",
+    df_countries_names == df_countries_names[52] ~ "Curacao",
+    df_countries_names == "São Tomé and Principe" ~ "Sao Tome and Principe",
+    df_countries_names == "East Asia & Pacific (IDA & IBRD)" ~ "East Asia & Pacific (IDA & IBRD countries)",
+    df_countries_names == "Europe & Central Asia (IDA & IBRD)" ~ "Europe & Central Asia (IDA & IBRD countries)",
+    df_countries_names == "Latin America & Caribbean (IDA & IBRD)" ~ "Latin America & the Caribbean (IDA & IBRD countries)",
+    df_countries_names == "Middle East & North Africa (IDA & IBRD)" ~ "Middle East & North Africa (IDA & IBRD countries)",
+    df_countries_names == "Sub-Saharan Africa (IDA & IBRD)" ~ "Sub-Saharan Africa (IDA & IBRD countries)",
+    TRUE ~ df_countries_names
+  )
+df_countries$`Table Name` <- modified_df_countries_names
+```
+
+After that, since there are too many kinds of series included in the data set, we put our focus on the series with `Topic` in the following list that are related to our research:
+
+- Economic Policy & Debt: National accounts: Adjusted savings & income
+- Economic Policy & Debt: National accounts: US$ at constant 2015 prices: Aggregate indicators
+- Education: Efficiency
+- Education: Outcomes
+- Education: Participation
+- Environment: Emissions
+- Environment: Energy production & use
+- Health: Population: Structure
+- Poverty: Income distribution
+- Poverty: Poverty rates
+
+```{r}
+selected_topics <- c("Economic Policy & Debt: National accounts: Adjusted savings & income",
+                    "Economic Policy & Debt: National accounts: US$ at constant 2015 prices: Aggregate indicators",
+                    "Education: Efficiency",
+                    "Education: Outcomes",
+                    "Education: Participation",
+                    "Environment: Emissions",
+                    "Environment: Energy production & use",
+                    "Health: Population: Structure",
+                    "Poverty: Income distribution",
+                    "Poverty: Poverty rates")
+
+selected_series = df_series %>% 
+  filter(Topic %in% selected_topics)
+```
+
+In addition, since there are both country-wise and region-wise data in `df_data`, we want to concentrate on the country-wise data first, therefore we extract country data in the selected topic as `df_countryData_selected`. The reduced data set has 217 countries and 279 selected indicators, which leads to a total of `217 * 279 = 60543` rows and ramains 66 columns of data.
+
+```{r}
+df_series_selected <- df_series %>% 
+  filter(`Topic` %in% selected_topics)
+
+df_only_countries <- df_countries %>% 
+  filter(!is.na(Region))
+  
+df_countryData_selected <- df_data %>% 
+  filter(`Indicator Name` %in% df_series_selected$`Indicator Name`) %>% 
+  filter(`Country Name` %in% df_only_countries$`Table Name`)
+```
