@@ -2,9 +2,9 @@
 
 ```{r}
 
-df_data <- read_csv("./WDI_csv/WDIData.csv")
-df_series <- read_csv("./WDI_csv/WDISeries.csv")
-df_countries <- read_csv("./WDI_csv/WDICountry.csv")
+df_data <- read_csv("./WDI_csv/WDIData.csv") %>% select(!last_col())
+df_series <- read_csv("./WDI_csv/WDISeries.csv") %>% select(!last_col())
+df_countries <- read_csv("./WDI_csv/WDICountry.csv") %>% select(!last_col())
 
 ```
 
@@ -51,9 +51,9 @@ df_series$`Indicator Name` <- modified_df_series_name
 df_countries_names <- df_countries$`Table Name`
 modified_df_countries_names <- 
   case_when(
-    df_countries_names == "Côte d'Ivoire" ~ "Cote d'Ivoire",
+    df_countries_names == df_countries_names[42] ~ "Cote d'Ivoire",
     df_countries_names == df_countries_names[52] ~ "Curacao",
-    df_countries_names == "São Tomé and Principe" ~ "Sao Tome and Principe",
+    df_countries_names == df_countries_names[219] ~ "Sao Tome and Principe",
     df_countries_names == "East Asia & Pacific (IDA & IBRD)" ~ "East Asia & Pacific (IDA & IBRD countries)",
     df_countries_names == "Europe & Central Asia (IDA & IBRD)" ~ "Europe & Central Asia (IDA & IBRD countries)",
     df_countries_names == "Latin America & Caribbean (IDA & IBRD)" ~ "Latin America & the Caribbean (IDA & IBRD countries)",
@@ -93,7 +93,7 @@ selected_series = df_series %>%
   filter(Topic %in% selected_topics)
 ```
 
-In addition, since there are both country-wise and region-wise data in `df_data`, we want to concentrate on the country-wise data first, therefore we extract country data in the selected topic as `df_countryData_selected`. The reduced data set has 217 countries and 279 selected indicators, which leads to a total of `217 * 279 = 60543` rows and ramains 66 columns of data.
+In addition, since there are both country-wise and region-wise data in `df_data`, we want to concentrate on the country-wise data first, therefore we extract country data in the selected topic as `df_countryData_selected`. The reduced data set has 217 countries and 279 selected indicators, which leads to a total of `217 * 279 = 60543` rows and remains 66 columns of data.
 
 ```{r}
 df_series_selected <- df_series %>% 
@@ -105,4 +105,7 @@ df_only_countries <- df_countries %>%
 df_countryData_selected <- df_data %>% 
   filter(`Indicator Name` %in% df_series_selected$`Indicator Name`) %>% 
   filter(`Country Name` %in% df_only_countries$`Table Name`)
+
+write_csv(df_countryData_selected, "./WDI_csv/WDI_countryData_selected.csv")
+write_csv(df_only_countries, "./WDI_csv/WDI_only_countries.csv")
 ```

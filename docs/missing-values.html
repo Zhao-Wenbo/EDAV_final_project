@@ -24,7 +24,7 @@
 <meta name="author" content="Wenbo Zhao, Junfeng Yan, Navjot Singh" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -78,12 +78,16 @@
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#data-set-selection"><i class="fa fa-check"></i><b>4.1</b> Data Set Selection</a></li>
-<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing values by column</a></li>
-<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-in-individual-indicators"><i class="fa fa-check"></i><b>4.3</b> Missing values in Individual Indicators</a></li>
-<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.4</b> Missing values by country</a></li>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-year"><i class="fa fa-check"></i><b>4.1</b> Missing values by year</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-indicator"><i class="fa fa-check"></i><b>4.2</b> Missing values by indicator</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.3</b> Missing values by country</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-corelation-between-co2-nox-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a corelation between CO2, NOx emissions and financial indicators, quality of life, etc?</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -107,110 +111,23 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
-<div id="data-set-selection" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Data Set Selection</h2>
-<p>Since the data set is too large, we choose the following indicators</p>
-<pre><code>##  [1] &quot;Access to electricity (% of population)&quot;                                                                
-##  [2] &quot;Adjusted net national income (current US$)&quot;                                                             
-##  [3] &quot;Adjusted net national income per capita (current US$)&quot;                                                  
-##  [4] &quot;Adjusted savings: carbon dioxide damage (current US$)&quot;                                                  
-##  [5] &quot;Agricultural methane emissions (thousand metric tons of CO2 equivalent)&quot;                                
-##  [6] &quot;Agricultural nitrous oxide emissions (thousand metric tons of CO2 equivalent)&quot;                          
-##  [7] &quot;CO2 emissions (kg per 2015 US$ of GDP)&quot;                                                                 
-##  [8] &quot;CO2 emissions (kt)&quot;                                                                                     
-##  [9] &quot;CO2 emissions (metric tons per capita)&quot;                                                                 
-## [10] &quot;Educational attainment, at least Bachelor&#39;s or equivalent, population 25+, total (%) (cumulative)&quot;      
-## [11] &quot;Educational attainment, at least completed lower secondary, population 25+, total (%) (cumulative)&quot;     
-## [12] &quot;Educational attainment, at least completed post-secondary, population 25+, total (%) (cumulative)&quot;      
-## [13] &quot;Educational attainment, at least completed primary, population 25+ years, total (%) (cumulative)&quot;       
-## [14] &quot;Educational attainment, at least completed short-cycle tertiary, population 25+, total (%) (cumulative)&quot;
-## [15] &quot;Educational attainment, at least completed upper secondary, population 25+, total (%) (cumulative)&quot;     
-## [16] &quot;Educational attainment, at least Master&#39;s or equivalent, population 25+, total (%) (cumulative)&quot;        
-## [17] &quot;Educational attainment, Doctoral or equivalent, population 25+, total (%) (cumulative)&quot;                 
-## [18] &quot;Electric power consumption (kWh per capita)&quot;                                                            
-## [19] &quot;GDP (current US$)&quot;                                                                                      
-## [20] &quot;GDP per capita (current US$)&quot;                                                                           
-## [21] &quot;Gini index (World Bank estimate)&quot;</code></pre>
-<p>and columns</p>
-<pre><code>## [1] &quot;Country.Name&quot;   &quot;Indicator.Name&quot; &quot;X1960&quot;          &quot;X1970&quot;         
-## [5] &quot;X1980&quot;          &quot;X1990&quot;          &quot;X2000&quot;          &quot;X2010&quot;         
-## [9] &quot;X2015&quot;</code></pre>
-<p>that are helpful for our analysis.</p>
-<p>The size of data set is now</p>
-<pre><code>## [1] 4557    9</code></pre>
+<div id="missing-values-by-year" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Missing values by year</h2>
+<p>We first examine the missing condition in each year. We draw a plot to show the total number of missing values in each year
+<img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>From the figure, we can see that the missing count is segmented roughly in decades. 1960s have the highest missing rate and the recent two years also miss many data. 1970s and 1980 have moderate high missing rate and 2000-2018 have the lowest missing rate. However, even the lowest missing count is more 20 thousand, almost 1/3 of 60,543 records. Therefore, we concentrate on the time period 1971-2018 and we have to continue to check out the missing condition in each indicator.</p>
 </div>
-<div id="missing-values-by-column" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Missing values by column</h2>
-<p>We first check the number of missing values in every column.</p>
-<pre><code>##          X1960          X1970          X1980          X1990          X2000 
-##           3943           3013           2736           2523           2211 
-##          X2015          X2010   Country.Name Indicator.Name 
-##           1892           1836              0              0</code></pre>
-<p>From the result, we can see that <code>Country.Name</code> and <code>Indicator.Name</code> are fully filled while the values of indicators in each years have many deficiencies. Especially, we the values in early years such as 1960 are missed for almost all cases. This means that we should limit the analysis interval to recent decades to avoid heavily missing data.</p>
+<div id="missing-values-by-indicator" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Missing values by indicator</h2>
+<p>We then investigate the difference of missing values by indicators. We draw a plot that shows the distribution of average missing amount in 1970-2018 of each indicator</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+We can see that there are many “high quality” indicators that have less than 50 missing values on average. However, there are also many indicators have more than 100 missing values. We drop the indicators that miss more than 150 values on average, since the remaining ones can not support a comprehensive investigation on them. 198 out of 279 selected indicators are left.</p>
 </div>
-<div id="missing-values-in-individual-indicators" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Missing values in Individual Indicators</h2>
-<p>After that, we check the number of missing values in each individual indicator.</p>
-<pre><code>## [1] &quot;Access to electricity (% of population)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-1.png" width="672" /></p>
-<pre><code>## [1] &quot;Adjusted net national income (current US$)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-2.png" width="672" /></p>
-<pre><code>## [1] &quot;Adjusted net national income per capita (current US$)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-3.png" width="672" /></p>
-<pre><code>## [1] &quot;Adjusted savings: carbon dioxide damage (current US$)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-4.png" width="672" /></p>
-<pre><code>## [1] &quot;Agricultural methane emissions (thousand metric tons of CO2 equivalent)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-5.png" width="672" /></p>
-<pre><code>## [1] &quot;Agricultural nitrous oxide emissions (thousand metric tons of CO2 equivalent)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-6.png" width="672" /></p>
-<pre><code>## [1] &quot;CO2 emissions (kg per 2015 US$ of GDP)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-7.png" width="672" /></p>
-<pre><code>## [1] &quot;CO2 emissions (kt)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-8.png" width="672" /></p>
-<pre><code>## [1] &quot;CO2 emissions (metric tons per capita)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-9.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least Bachelor&#39;s or equivalent, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-10.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least completed lower secondary, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-11.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least completed post-secondary, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-12.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least completed primary, population 25+ years, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-13.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least completed short-cycle tertiary, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-14.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least completed upper secondary, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-15.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, at least Master&#39;s or equivalent, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-16.png" width="672" /></p>
-<pre><code>## [1] &quot;Educational attainment, Doctoral or equivalent, population 25+, total (%) (cumulative)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-17.png" width="672" /></p>
-<pre><code>## [1] &quot;Electric power consumption (kWh per capita)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-18.png" width="672" /></p>
-<pre><code>## [1] &quot;GDP (current US$)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-19.png" width="672" /></p>
-<pre><code>## [1] &quot;GDP per capita (current US$)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-20.png" width="672" /></p>
-<pre><code>## [1] &quot;Gini index (World Bank estimate)&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/missing%20for%20each%20indicator-21.png" width="672" /></p>
-<p>We can see that the missing conditional among various indicators vary greatly. For example, <code>Access to electricity (% of population)</code> indicator is missing for most countries before 1980s and are recorded after 2000s. Also, <code>CO2 emissions (metric tons per capita)</code> indicator is complete for most of the countries, which makes it a good analysis target.</p>
-</div>
-<div id="missing-values-by-country" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Missing values by country</h2>
-<p>At last, we inspect the missing condition for each country. We count the number of missing indicators at each selected time.</p>
-<pre><code>##                Country.Name X1960 X1970 X1980 X1990 X2000 X2010 X2015
-## 1  St. Martin (French part)    21    19    19    20    20    20    20
-## 2           Channel Islands    21    19    19    20    18    20    20
-## 3 Sint Maarten (Dutch part)    21    19    19    20    20    20    18
-## 4  Northern Mariana Islands    21    19    19    20    20    18    18
-## 5     Virgin Islands (U.S.)    21    19    19    20    20    18    18
-##   mean_missing
-## 1     19.85714
-## 2     19.57143
-## 3     19.57143
-## 4     19.28571
-## 5     19.28571</code></pre>
-<p>We can see that some countries missed more than 19 indicators out of 21 selected ones. We should choose those countries with high filling percentage as our research target.</p>
+<div id="missing-values-by-country" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Missing values by country</h2>
+<p>At last, we examine the missing condition in each country. Since the data collecting difficulty in countries with different developing condition maybe different, we facet the data with income group.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>It was a little bit surprising that most of the countries that have high level of missing data are high income countries, which are supposed to have more robust data collecting systems. Luckily, the total number of high income country is large and it doesn’t have much influence to remove some of them. Therefore, we only retain the countries that have less than 150 average missing values. After that, 197 out of 217 countries is under observation.</p>
 
 </div>
 </div>

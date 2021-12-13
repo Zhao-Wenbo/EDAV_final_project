@@ -12,3 +12,5 @@ conclusion
 does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality
 is-there-a-corelation-between-co2-nox-emissions-and-financial-indicators-quality-of-life-etc
 does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox
+missing-values-by-year
+missing-values-by-indicator
