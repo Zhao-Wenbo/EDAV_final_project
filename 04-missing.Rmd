@@ -2,7 +2,7 @@
 
 ## Missing values by year
 We first examine the missing condition in each year. We draw a plot to show the total number of missing values in each year
-```{r}
+```{r, fig.height=4}
 tsize <- 15
 
 df_countryData_selected <- read_csv("./WDI_csv/WDI_countryData_selected.csv")
@@ -91,7 +91,7 @@ ggplot(missing_country, aes(x=mean)) +
   facet_wrap(~`Income Group`) +
   theme(text = element_text(size = tsize)) +
   theme(panel.spacing.x = unit(2, "lines")) +
-  ggtitle("Average missing value by country, faceted by income")
+  ggtitle("Average missing value by country, faceted by income") 
 
 ```
 
