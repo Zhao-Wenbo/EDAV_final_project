@@ -98,6 +98,7 @@ ggplot(missing_country, aes(x=mean)) +
 It was a little bit surprising that most of the countries that have high level of missing data are high income countries, which are supposed to have more robust data collecting systems. Luckily, the total number of high income country is large and it doesn't have much influence to remove some of them. Therefore, we only retain the countries that have less than 150 average missing values. After that, 197 out of 217 countries is under observation.
 
 ```{r ch04-6}
+
 missing_country_l150 <- missing_country %>% 
   filter(mean < 150)
 
@@ -111,5 +112,5 @@ write_csv(missing_country_l150 %>% select(c(1,2), "mean"), "./WDI_csv/selected_c
 
 df_series_selected$Topic <- df_series_selected$Topic %>% factor()
 write_csv(df_series_selected %>% select(1,2,3) %>% filter(`Indicator Name` %in% missing_indicator_l150$`Indicator Name`) %>% 
-            merge(missing_indicator_l150 %>% select(1, "mean"), by="Indicator Name"), "./WDI_csv/selected_indicators.csv")
+            merge(missing_indicator_l150 %>% select(1, "mean"), by="Indicator Name"), "./WDI_csv/selected_indicators.csv") 
 ```
