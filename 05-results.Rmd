@@ -1,6 +1,6 @@
 # Results
 
-```{r}
+```{r ch05-01}
 df_data_missing <- read_csv("./WDI_csv/WDI_Data_missing.csv")
 df_selected_country <- read_csv("./WDI_csv/selected_countries.csv")
 df_selected_indicator <- read_csv("./WDI_csv/selected_indicators.csv")
@@ -14,7 +14,7 @@ tsize <- 15
 
 ## Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?
 We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
-```{r, fig.height=5, fig.width=10}
+```{r ch05-2-1, fig.height=5, fig.width=10}
 df_2010_co2 <- merge(df_selected_country %>% select(c(1,2)), 
                      df_data_missing %>% filter(`Indicator Code` == "EN.ATM.CO2E.PC") %>% 
                        select(c("Country Name", "2010")),
@@ -31,7 +31,7 @@ ggplot(df_2010_co2, aes(x=`co2 per capita`, y=`Income Group`)) +
 
 From the plot, we can see the evidence that countries with higher income emit more co2 per person. Most of the low-income countries emit almost negligible co2 compared with high-income countries. However, this may due to the fact that the production of high-value product requires more energy and low-income countries tend to have  bigger population. Therefore, we also investigate on the greenhouse emission per 2015 US$.
 
-```{r, fig.height=5, fig.width=10}
+```{r ch05-2-2, fig.height=5, fig.width=10}
 df_2010_co2 <- merge(df_2010_co2, 
                      df_data_missing %>% filter(`Indicator Code` == "EN.ATM.CO2E.KD.GD") %>% 
                        select(c("Country Name", "2010")),
@@ -50,7 +50,7 @@ This plot gives us some different insight against the former one. The plot shows
 
 At last, we would like see the annually varying situation of the two above-mentioned metrics.
 
-```{r, fig.width=10}
+```{r ch05-2-3, fig.width=10}
 df_co2 <- df_data_missing %>% 
   filter(`Indicator Code` == "EN.ATM.CO2E.KT") %>% 
   select(!c("Country Code", "Indicator Name", "Indicator Code")) %>% 
@@ -106,7 +106,7 @@ We can see that the trend is close to what is shown in the boxplot of CO2 emissi
 
 Similarly, we want to discover the annually change in CO2 emission per 2015 US$ by plotting a line graph.
 
-```{r, fig.width=10}
+```{r ch05-2-4, fig.width=10}
 df_co2_temp <- df_co2 * !is.na(df_gdp)
 df_gdp_temp <- df_gdp * !is.na(df_co2)
 df_co2_temp <- merge(df_selected_country %>% select(c("Country Name", "Income Group")), 
