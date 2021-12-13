@@ -10,7 +10,10 @@ tsize <- 15
 ```
 
 ## Does the increase of education attainment and better overall economic condition decrease the income inequality?
-14ffervdfv
+123
+```{r ch05-1-1}
+# name the chunks to avoid conflict
+```
 
 ## Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?
 We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
@@ -148,4 +151,7 @@ ggplot(df_co2_pdollar_group, aes(x=year, y=value, color=fct_rev(`Income Group`))
 From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the disassembly of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.
 
 ## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?
-3
+123
+```{r ch05-3-1}
+# name the chunks to avoid conflict
+```
