@@ -3,15 +3,17 @@
 ## Missing values by year
 We first examine the missing condition in each year. We draw a plot to show the total number of missing values in each year
 ```{r}
+tsize <- 15
 
 df_countryData_selected <- read_csv("./WDI_csv/WDI_countryData_selected.csv")
+df_series <- read_csv("./WDI_csv/WDISeries.csv")
 
 missing_by_year <- colSums(is.na(df_countryData_selected %>% 
                 select(-c("Country Name", "Country Code", "Indicator Name", "Indicator Code")))) 
 df_missing_by_year <- data.frame(year=1960:2020, missing=missing_by_year)
 ggplot(df_missing_by_year, aes(x=year, y=missing)) + 
   geom_point() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = tsize)) +
   ggtitle("Number of missing values in each year")
 
 ```
@@ -41,10 +43,11 @@ missing_indicator <- missing_indicator %>%
 
 ggplot(missing_indicator, aes(x=mean)) +
   geom_histogram(binwidth=12.5, fill="lightgray", color="black") +
-  theme(text = element_text(size = 16)) +
-  ggtitle("Distribution of average missing amount by indicator")
+  theme(text = element_text(size = tsize)) +
+  ggtitle("Average missing amount by indicator")
 
 ```
+
 We can see that there are many "high quality" indicators that have less than 50 missing values on average. However, there are also many indicators have more than 100 missing values. We drop the indicators that miss more than 150 values on average, since the remaining ones can not support a comprehensive investigation on them. 198 out of 279 selected indicators are left.
 
 ```{r}
@@ -86,9 +89,9 @@ missing_country$`Income Group` <- missing_country$`Income Group` %>%
 ggplot(missing_country, aes(x=mean)) +
   geom_histogram(binwidth=12.5, fill="lightgray", color="black") +
   facet_wrap(~`Income Group`) +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = tsize)) +
   theme(panel.spacing.x = unit(2, "lines")) +
-  ggtitle("Distribution of missing value by country, faceted by income group")
+  ggtitle("Average missing value by country, faceted by income")
 
 ```
 
@@ -100,4 +103,13 @@ missing_country_l150 <- missing_country %>%
 
 df_count_sel_miss_yic <- df_count_sel_miss_yi %>% 
   filter(`Country Name` %in% missing_country_l150$`Table Name`)
+
+df_series_selected <- read_csv("./WDI_csv/WDI_series_selected.csv")
+write_csv(df_count_sel_miss_yic, "./WDI_csv/WDI_Data_missing.csv")
+colnames(missing_country_l150)[1] <- "Country Name"
+write_csv(missing_country_l150 %>% select(c(1,2), "mean"), "./WDI_csv/selected_countries.csv")
+
+df_series_selected$Topic <- df_series_selected$Topic %>% factor()
+write_csv(df_series_selected %>% select(1,2,3) %>% filter(`Indicator Name` %in% missing_indicator_l150$`Indicator Name`) %>% 
+            merge(missing_indicator_l150 %>% select(1, "mean"), by="Indicator Name"), "./WDI_csv/selected_indicators.csv")
 ```

@@ -108,4 +108,5 @@ df_countryData_selected <- df_data %>%
 
 write_csv(df_countryData_selected, "./WDI_csv/WDI_countryData_selected.csv")
 write_csv(df_only_countries, "./WDI_csv/WDI_only_countries.csv")
+write_csv(df_series_selected, "./WDI_csv/WDI_series_selected.csv")
 ```

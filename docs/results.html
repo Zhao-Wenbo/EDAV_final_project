@@ -24,7 +24,7 @@
 <meta name="author" content="Wenbo Zhao, Junfeng Yan, Navjot Singh" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -78,15 +78,14 @@
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#data-set-selection"><i class="fa fa-check"></i><b>4.1</b> Data Set Selection</a></li>
-<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-column"><i class="fa fa-check"></i><b>4.2</b> Missing values by column</a></li>
-<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-in-individual-indicators"><i class="fa fa-check"></i><b>4.3</b> Missing values in Individual Indicators</a></li>
-<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.4</b> Missing values by country</a></li>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-year"><i class="fa fa-check"></i><b>4.1</b> Missing values by year</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-indicator"><i class="fa fa-check"></i><b>4.2</b> Missing values by indicator</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.3</b> Missing values by country</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-corelation-between-co2-nox-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a corelation between CO2, NOx emissions and financial indicators, quality of life, etc?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
@@ -116,9 +115,19 @@
 <h2><span class="header-section-number">5.1</span> Does the increase of education attainment and better overall economic condition decrease the income inequality?</h2>
 <p>14ffervdfv</p>
 </div>
-<div id="is-there-a-corelation-between-co2-nox-emissions-and-financial-indicators-quality-of-life-etc" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Is there a corelation between CO2, NOx emissions and financial indicators, quality of life, etc?</h2>
-<p>2</p>
+<div id="is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?</h2>
+<p>We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
+<img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+<p>From the plot, we can see the evidence that countries with higher income emit more co2 per person. Most of the low-income countries emit almost negligible co2 compared with high-income countries. However, this may due to the fact that the production of high-value product requires more energy and low-income countries tend to have bigger population. Therefore, we also investigate on the greenhouse emission per 2015 US$.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p>This plot gives us some different insight against the former one. The plot shows that high and low income countries emit relatively fewer co2 to generate unit GDP than that of middle countries. The reason may comes from the fact that high-income countries have a wholesome system of service sector that can make a lot of profit with relatively low pollution while the low-income countries focus on fundamental livings which also emit few co2. In contrast, middle-income countries may focus on industrial section, which will emit high amount of co2 for each unit of GDP.</p>
+<p>At last, we would like see the annually varying situation of the two above-mentioned metrics.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p>We can see that the trend is close to what is shown in the boxplot of CO2 emission per capita, which increases with the increase of income group. We can also observe that the emission per capita in high-income countries drops in the recent years, which may credits to the development of service section and the arise of environment-protect activities. On the other hand, the emission in upper-middle-income countries bursts after 2000, because of the rapid industrialization in these countries. It is interesting so see that the emission of lower-middle-income countries and low-income countries have a cross at about 1990, while the record of upper middle income countries drop sharply at the same time. After looking into the data, the reason lies in the disassembly of the Soviet Union, which adds several countries that doesn’t exist in the data set and lead to a fluctuation in records.</p>
+<p>Similarly, we want to discover the annually change in CO2 emission per 2015 US$ by plotting a line graph.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p>From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the disassembly of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.</p>
 </div>
 <div id="does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?</h2>

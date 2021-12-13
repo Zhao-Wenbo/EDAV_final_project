@@ -14,3 +14,4 @@ is-there-a-corelation-between-co2-nox-emissions-and-financial-indicators-quality
 does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox
 missing-values-by-year
 missing-values-by-indicator
+is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc
