@@ -13,6 +13,7 @@ tsize <- 15
 123
 ```{r ch05-1-1}
 # name the chunks to avoid conflict
+
 ```
 
 ## Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?
@@ -155,5 +156,25 @@ From the plot, we can reconfirm the boxplot for year 2010 that middle income cou
 ```{r ch05-3-1}
 # name the chunks to avoid conflict
 
-test to see if branch works
+# pivot the data from wide to long
+country_income_group <- df_selected_country %>%
+  select(`Country Name`,`Income Group`)
+df_panel <- df_data_missing %>% 
+  # first wrangle column of years into rows
+  pivot_longer(cols = "1971":"2018",names_to = "Year")%>% 
+  # then pivot rows of indicator into columns
+  pivot_wider(id_cols = c(`Country Name`,Year),names_from = `Indicator Code`,values_from = value)%>%
+  left_join(country_income_group,by = "Country Name")%>%
+  mutate(Year = as.numeric((Year)))%>%
+  select(`Country Name`,Year,`Income Group`,everything())
+
+head(df_panel)
+
+df_indicators <- df_data_missing %>%
+  distinct(`Indicator Name`,`Indicator Code`)
+
+# look at renewable energy % of total output
+df_panel %>%
+  select(`Country Name`,Year,`Income Group`, EG.ELC.RNEW.ZS)%>%
+  ggplot(aes(x = ))
 ```
