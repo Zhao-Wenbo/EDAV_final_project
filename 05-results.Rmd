@@ -124,7 +124,7 @@ ggplot(df_life_edu_group) +
   ggtitle("Change of primary completion rate (line, %)\nand life expectancy (dot, years)")
 ```
 
-From the plot we can that both the primary completion rate and life expectancy increase with higher income group. The primary completion rate in higher- and upper-middle-countries are always in the high range and that of lower-middle and low-income countries also grow repidly thanks to the increasing focus of foundamental education in these areas.
+From the plot we can that both the primary completion rate and life expectancy increase with higher income group. The primary completion rate in higher- and upper-middle-countries are always in the high range and that of lower-middle and low-income countries also grow repidly thanks to the increasing focus of fundamental education in these areas.
 
 ## Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?
 We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
