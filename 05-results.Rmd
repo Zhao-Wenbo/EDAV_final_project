@@ -8,6 +8,24 @@ df_selected_country$`Income Group` <- df_selected_country$`Income Group` %>%
   factor(levels=c("Low income", "Lower middle income", "Upper middle income", "High income"))
 tsize <- 15
 ```
+```{r pivot dataset}
+# pivot the data from wide to long
+country_income_group <- df_selected_country %>%
+  select(`Country Name`,`Income Group`)
+df_panel <- df_data_missing %>% 
+  # first wrangle column of years into rows
+  pivot_longer(cols = "1971":"2018",names_to = "Year")%>% 
+  # then pivot rows of indicator into columns
+  pivot_wider(id_cols = c(`Country Name`,Year),names_from = `Indicator Code`,values_from = value)%>%
+  left_join(country_income_group,by = "Country Name")%>%
+  mutate(Year = as.numeric((Year)))%>%
+  select(`Country Name`,Year,`Income Group`,everything())
+
+head(df_panel)
+
+df_indicators <- df_data_missing %>%
+  distinct(`Indicator Name`,`Indicator Code`)
+```
 
 ## Does the increase of education attainment and better overall economic condition decrease the income inequality?
 123
@@ -152,29 +170,36 @@ ggplot(df_co2_pdollar_group, aes(x=year, y=value, color=fct_rev(`Income Group`))
 From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the disassembly of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.
 
 ## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?
-123
+
+
 ```{r ch05-3-1}
-# name the chunks to avoid conflict
-
-# pivot the data from wide to long
-country_income_group <- df_selected_country %>%
-  select(`Country Name`,`Income Group`)
-df_panel <- df_data_missing %>% 
-  # first wrangle column of years into rows
-  pivot_longer(cols = "1971":"2018",names_to = "Year")%>% 
-  # then pivot rows of indicator into columns
-  pivot_wider(id_cols = c(`Country Name`,Year),names_from = `Indicator Code`,values_from = value)%>%
-  left_join(country_income_group,by = "Country Name")%>%
-  mutate(Year = as.numeric((Year)))%>%
-  select(`Country Name`,Year,`Income Group`,everything())
-
-head(df_panel)
-
-df_indicators <- df_data_missing %>%
-  distinct(`Indicator Name`,`Indicator Code`)
-
-# look at renewable energy % of total output
+# df_data_missing %>%
+#   filter(`Indicator Code` %in% c("EG.ELC.RNEW.ZS","EG.ELC.NUCL.ZS"))%>%
+#   mutate(indicator_name = case_when(
+#     `Indicator Code` == "EG.ELC.RNEW.ZS" ~ "Other Source",
+#     `Indicator Code` == "EG.ELC.NUCL.ZS" ~ "Nuclear Source",
+#   ))%>%
+#   select(-`Indicator Name`)%>%
+#   pivot_longer(cols = "1971":"2018",names_to = "year")%>%
+#   left_join(df_selected_country,by = "Country Name")%>%
+  
 df_panel %>%
-  select(`Country Name`,Year,`Income Group`, EG.ELC.RNEW.ZS)%>%
-  ggplot(aes(x = ))
+  group_by(`Income Group`,Year)%>%
+  summarize(`Other Sources` = mean(EG.ELC.RNEW.ZS,na.rm = TRUE),`Nuclear Sources` = mean(EG.ELC.NUCL.ZS,na.rm = TRUE))%>%
+  mutate(`Other Sources` = replace_na(`Other Sources`,0),`Nuclear Sources` = replace_na(`Nuclear Sources`,0))%>%
+  mutate(`All Renewable Sources` = `Other Sources` + `Nuclear Sources`)%>%
+  pivot_longer(cols = `Other Sources`:`All Renewable Sources`,names_to = "Renewable Energy Type")%>%
+  mutate(`Income Group` = fct_rev(`Income Group`))%>%
+  ungroup()%>%
+  filter(Year >1990 & Year < 2016)%>%
+  ggplot(aes(x = Year,y = value,color = `Renewable Energy Type`)) + 
+    geom_point(position=position_jitter(w=0.2),alpha = 0.8)+
+  geom_line()+
+  facet_grid(~`Income Group`)+
+  scale_x_discrete(breaks = round(seq(1971, 2018, by = 10))) +
+  theme(legend.position = "bottom")+
+  labs(x = " ",y = "Percentage")+
+  ggtitle("Electricity Production from Renewable Sources",subtitle = "% of total production")
+    
 ```
+
