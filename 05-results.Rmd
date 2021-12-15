@@ -172,18 +172,9 @@ From the plot, we can reconfirm the boxplot for year 2010 that middle income cou
 ## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?
 
 
-```{r ch05-3-1}
-# df_data_missing %>%
-#   filter(`Indicator Code` %in% c("EG.ELC.RNEW.ZS","EG.ELC.NUCL.ZS"))%>%
-#   mutate(indicator_name = case_when(
-#     `Indicator Code` == "EG.ELC.RNEW.ZS" ~ "Other Source",
-#     `Indicator Code` == "EG.ELC.NUCL.ZS" ~ "Nuclear Source",
-#   ))%>%
-#   select(-`Indicator Name`)%>%
-#   pivot_longer(cols = "1971":"2018",names_to = "year")%>%
-#   left_join(df_selected_country,by = "Country Name")%>%
-  
-df_panel %>%
+```{r ch05-3-1, fig.width=10}
+
+df_renewable_energy <- df_panel %>%
   group_by(`Income Group`,Year)%>%
   summarize(`Other Sources` = mean(EG.ELC.RNEW.ZS,na.rm = TRUE),`Nuclear Sources` = mean(EG.ELC.NUCL.ZS,na.rm = TRUE))%>%
   mutate(`Other Sources` = replace_na(`Other Sources`,0),`Nuclear Sources` = replace_na(`Nuclear Sources`,0))%>%
@@ -191,15 +182,72 @@ df_panel %>%
   pivot_longer(cols = `Other Sources`:`All Renewable Sources`,names_to = "Renewable Energy Type")%>%
   mutate(`Income Group` = fct_rev(`Income Group`))%>%
   ungroup()%>%
-  filter(Year >1990 & Year < 2016)%>%
+  filter(Year >1990 & Year < 2016)
+ 
+# electricity production from renewable sources, break down by country and type  
+df_renewable_energy%>%
   ggplot(aes(x = Year,y = value,color = `Renewable Energy Type`)) + 
     geom_point(position=position_jitter(w=0.2),alpha = 0.8)+
-  geom_line()+
+  geom_line(position=position_jitter(w=0.2),alpha = 0.8)+
   facet_grid(~`Income Group`)+
   scale_x_discrete(breaks = round(seq(1971, 2018, by = 10))) +
-  theme(legend.position = "bottom")+
+  theme(legend.position = "bottom",text = element_text(size = tsize))+
   labs(x = " ",y = "Percentage")+
   ggtitle("Electricity Production from Renewable Sources",subtitle = "% of total production")
     
+```
+
+```{r}
+sum(is.na(df_panel$EN.ATM.CO2E.PC))
+```
+
+```{r ch05-3-2, fig.width=10}
+ 
+# does renewable energy corresponds to decrease in emission?
+
+# EN.ATM.CO2E.KD.GD	
+# EN.ATM.CO2E.PC
+# 
+# EN.ATM.NOXE.EG.ZS
+# 	EN.CO2.ETOT.ZS
+
+df_emission <- df_panel %>%
+  group_by(`Income Group`,Year)%>%
+  summarize(`CO2 per 2015 USD` = mean(EN.ATM.CO2E.KD.GD,na.rm = TRUE),
+            `CO2 per Capita` = mean(EN.ATM.CO2E.PC,na.rm = TRUE))%>%
+  mutate(`CO2 per 2015 USD` = replace_na(`CO2 per 2015 USD`,0),
+         `CO2 per Capita` = replace_na(`CO2 per Capita`,0),
+         `Income Group` = fct_rev(`Income Group`))
+
+df_3_2<-df_renewable_energy %>%
+  filter(`Renewable Energy Type` == "All Renewable Sources")%>%
+  mutate(all_renewable = value)%>%
+  select(`Income Group`,Year,all_renewable)
+
+
+emission_and_renewable <- df_emission %>%
+  left_join(df_3_2,by = c("Income Group","Year"))%>%
+  filter(Year >1990 & Year < 2016)%>%
+  # convert to 0 - 1
+  mutate(all_renewable = all_renewable/100)%>%
+  # min max scaling for emission
+  mutate_at(vars(`CO2 per 2015 USD`:`CO2 per Capita`),~scales::rescale(.x,to = c(0,1)))
+
+emission_and_renewable%>%
+  pivot_longer(cols = `CO2 per 2015 USD`:all_renewable,names_to = "series name")%>%
+  ggplot(aes(x = Year,y = value,color = `series name`))+
+  geom_point()+
+  geom_smooth(method = "loess",se=FALSE,span = 0.4,lwd = 0.5)+
+  facet_grid(~`Income Group`)+
+  scale_x_continuous(name= " ",breaks = round(seq(1990, 2016, by = 10))) +
+  theme(legend.position = "bottom",text = element_text(size = tsize))+
+  labs(y = "Standardized Value")+
+  scale_color_discrete(name = " ", labels = c("Renewable Electricity %", "CO2 per 2015 USD", "CO2 per Capita"))+
+  ggtitle("Comparison of renewable energy source and CO2 emission")
+
+```
+
+```{r}
+
 ```
 
