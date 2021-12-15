@@ -34,7 +34,7 @@ df_indicators <- df_data_missing %>%
 
 ```
 
-## Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?
+## Is there a correlation between greenhouse emissions and financial indicators, quality of life, etc?
 We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
 ```{r ch05-2-1, fig.height=5, fig.width=10}
 df_2010_co2 <- merge(df_selected_country %>% select(c(1,2)), 
@@ -124,7 +124,7 @@ ggplot(df_co2_pc_group, aes(x=year, y=value, color=fct_rev(`Income Group`))) +
   ggtitle("Change of CO2 emission per capita")
 ```
 
-We can see that the trend is close to what is shown in the boxplot of CO2 emission per capita, which increases with the increase of income group. We can also observe that the emission per capita in high-income countries drops in the recent years, which may credits to the development of service section and the arise of environment-protect activities. On the other hand, the emission in upper-middle-income countries bursts after 2000, because of the rapid industrialization in these countries. It is interesting so see that the emission of lower-middle-income countries and low-income countries have a cross at about 1990, while the record of upper middle income countries drop sharply at the same time. After looking into the data, the reason lies in the disassembly of the Soviet Union, which adds several countries that doesn't exist in the data set and lead to a fluctuation in records.
+We can see that the trend is close to what is shown in the boxplot of CO2 emission per capita, which increases with the increase of income group. We can also observe that the emission per capita in high-income countries drops in the recent years, which may credits to the development of service section and the arise of environment-protect activities. On the other hand, the emission in upper-middle-income countries bursts after 2000, because of the rapid industrialization in these countries. It is interesting so see that the emission of lower-middle-income countries and low-income countries have a cross at about 1990, while the record of upper middle income countries drop sharply at the same time. After looking into the data, the reason lies in the dissolution of the Soviet Union, which adds several countries that doesn't exist in the data set and lead to a fluctuation in records.
 
 Similarly, we want to discover the annually change in CO2 emission per 2015 US$ by plotting a line graph.
 
@@ -167,10 +167,13 @@ ggplot(df_co2_pdollar_group, aes(x=year, y=value, color=fct_rev(`Income Group`))
   ggtitle("Change of CO2 emission per 2015 US$")
 ```
 
-From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the disassembly of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.
+From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the dissolution of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.
 
 ## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?
 
+We first investigate whether countries with higher income generate more electricity using renewable sources. Here, we define both nuclear sources and all other sources, which includes hydroelectric, solar, wind etc. as renewable sources for electricity production. The indicator we use are the percentage of electricity produced from nuclear sources and percentage of electricity produced from other sources. We then sum them to get the total percentage of electricity produced from renewable sources. We then aggregate them to yearly income group level by taking the mean. Moreover, we limit this analysis to the period between 1990 and 2016, since the indicator contains mostly missing values outside of this date range. 
+
+We can draw several interesting conclusion from the plot below. Firstly,low income countries have the highest percentage of electricity produced from renewable sources. However, these indicators contains high counts of missing values for low income countries, so this observation might not be robust. Secondly, percentage of electricity produced from renewable sources remains mostly constant for upper middle income countries and exhibit a downward trend for lower middle income countries, while this percentage has been rapidly increasing for high income and low income countries since around 2006. This could be due to increasing awareness of the importance of renewable energy since this period. Third, only rich countries can afford to use nuclear energy as a source of electricity, while this source electricity remains below 5% of total electricity production during this time period for all other countries.
 
 ```{r ch05-3-1, fig.width=10}
 
@@ -182,7 +185,8 @@ df_renewable_energy <- df_panel %>%
   pivot_longer(cols = `Other Sources`:`All Renewable Sources`,names_to = "Renewable Energy Type")%>%
   mutate(`Income Group` = fct_rev(`Income Group`))%>%
   ungroup()%>%
-  filter(Year >1990 & Year < 2016)
+  filter(Year >1990 & Year < 2016)%>%
+  ungroup()
  
 # electricity production from renewable sources, break down by country and type  
 df_renewable_energy%>%
@@ -190,13 +194,14 @@ df_renewable_energy%>%
     geom_point(position=position_jitter(w=0.2),alpha = 0.8)+
   geom_line(position=position_jitter(w=0.2),alpha = 0.8)+
   facet_grid(~`Income Group`)+
-  scale_x_discrete(breaks = round(seq(1971, 2018, by = 10))) +
+  scale_x_continuous(breaks = round(seq(1971, 2018, by = 10))) +
   theme(legend.position = "bottom",text = element_text(size = tsize))+
   labs(x = " ",y = "Percentage")+
   ggtitle("Electricity Production from Renewable Sources",subtitle = "% of total production")
     
 ```
 
+To investigate the relationship between use of renewable electricity source and CO2 emission, we first investigate the co-movement between these indicators. Since CO2 emission indicators are respectively in kg and tons, we scale CO2 emission indicators using min max scaling w.r.t each income group so that all indicators in the plot are on similar scales to help with our visualization. For high income countries and low income countries, increase in use of renewable electricity corresponds to a decrease in both indicators for CO2 emission. However, CO2 emissions per capita increase while CO2 per dollar decreased for upper and lower middle income countries, which suggests that other factors, such as productivity increase and/or consumption increase also affects CO2 emissions.
 
 ```{r ch05-3-2, fig.width=10}
  
@@ -228,7 +233,8 @@ emission_and_renewable <- df_emission %>%
   # convert to 0 - 1
   mutate(all_renewable = all_renewable/100)%>%
   # min max scaling for emission
-  mutate_at(vars(`CO2 per 2015 USD`:`CO2 per Capita`),~scales::rescale(.x,to = c(0,1)))
+  mutate_at(vars(`CO2 per 2015 USD`:`CO2 per Capita`),~scales::rescale(.x,to = c(0,1)))%>%
+  ungroup()
 
 emission_and_renewable%>%
   pivot_longer(cols = `CO2 per 2015 USD`:all_renewable,names_to = "series name")%>%
@@ -244,6 +250,7 @@ emission_and_renewable%>%
 
 ```
 
+We investigate this issue further by visualizing the data at the more granular country level. We created a scatter plot and fit a least square line between renewable electricity percentage and both CO2 emission per capita and CO2 emission per dollar for all income groups. We choose to log CO2 emissions indicators to again account for scale differences. For income groups, there exists a strong negative relationship between renewable electricity percentage and CO2 emission, although the large spread around the least square line indicates that there are other potential explanatory variables for CO2 emission. 
 
 ```{r ch05-3-2-1, fig.width=10}
 
