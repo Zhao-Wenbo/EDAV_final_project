@@ -1,5 +1,7 @@
 # Interactive component
 
+As is shown in the answering the question, for example, in the process of drawing the relationship between primary completion rate and life expectancy, we only plot a figure concentrating on the data of year 2010, since we can not display the data of every year in one figure. With the help of interactive plots, we now have the opportunity to show the data from all years by adding a slide bar to control the year to display. In addition, the radius of the circle represents the population of the country and color shows the income group it belongs to. From the interactive plot, we can see a positive correlation between primary school completion rate and life expectancy in every year.
+
 <meta charset="utf-8">
         
 <!-- Load d3.js -->
@@ -78,6 +80,7 @@ svg.append("g")
 // title
 svg.append('text')
     .attr('x', width/2)
+    .attr('y', -10)
     .attr('text-anchor', 'middle')
     .style('font-family', 'Helvetica')
     .style('font-size', 20)
