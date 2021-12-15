@@ -126,8 +126,6 @@ df_panel <- df_data_missing %>%
   mutate(Year = as.numeric((Year)))%>%
   select(`Country Name`,Year,`Income Group`,everything())
 
-head(df_panel)
-
 df_indicators <- df_data_missing %>%
   distinct(`Indicator Name`,`Indicator Code`)
 ```
