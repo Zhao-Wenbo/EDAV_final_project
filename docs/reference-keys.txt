@@ -11,3 +11,4 @@ is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-qual
 does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox
 interactive-component
 conclusion
+does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality-1
