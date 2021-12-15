@@ -18,7 +18,9 @@ ggplot(df_missing_by_year, aes(x=year, y=missing)) +
 
 ```
 
+
 From the figure, we can see that the missing count is segmented roughly in decades. 1960s have the highest missing rate and the recent two years also miss many data. 1970s and 1980 have moderate high missing rate and 2000-2018 have the lowest missing rate.  It is interesting to see that the number of missing data drop sharply at around 1990. After looking into the data, the reason lies in the disassembly of the Soviet Union, which adds several countries that doesn't exist in the data set and lead to a fluctuation in records.However, even the lowest missing count is more 20 thousand, almost 1/3 of 60,543 records. Therefore, we concentrate on the time period 1971-2018 and we have to continue to check out the missing condition in each indicator.
+
 
 ```{r ch04-2}
 df_count_sel_miss_y <- df_countryData_selected %>% 
@@ -26,7 +28,7 @@ df_count_sel_miss_y <- df_countryData_selected %>%
 ```
 
 ## Missing values by indicator
-We then investigate the difference of missing values by indicators. We draw a plot that shows the distribution of average missing amount in 1970-2018 of each indicator
+We then investigate the difference of missing values by indicators. We draw a plot that shows the distribution of average missing amount in 1970-2018 of each indicator.
 
 ```{r ch04-3}
 df_count_sel_miss_y_isna <- cbind(df_count_sel_miss_y %>% select(c(1,2,3,4)), 
@@ -60,7 +62,7 @@ df_count_sel_miss_yi <- df_count_sel_miss_y %>%
 
 
 ## Missing values by country
-At last, we examine the missing condition in each country. Since the data collecting difficulty in countries with different developing condition maybe different, we facet the data with income group.
+At last, we examine the missing condition in each country.We decide to facet our figure with income group, since the difficulty of data collection differs for countries with different income level. 
 
 ```{r ch04-5}
 
@@ -95,7 +97,7 @@ ggplot(missing_country, aes(x=mean)) +
 
 ```
 
-It was a little bit surprising that most of the countries that have high level of missing data are high income countries, which are supposed to have more robust data collecting systems. Luckily, the total number of high income country is large and it doesn't have much influence to remove some of them. Therefore, we only retain the countries that have less than 150 average missing values. After that, 197 out of 217 countries is under observation.
+It was a little bit surprising that most of the countries that have high level of missing data are high income countries, which are supposed to have more robust data collecting systems. Luckily, the total number of high income country is large and it doesn't have much influence to remove some of them. Therefore, we only retain the countries that have less than 150 average missing values. After that, 197 out of 217 countries remains.
 
 ```{r ch04-6}
 
