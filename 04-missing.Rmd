@@ -18,7 +18,9 @@ ggplot(df_missing_by_year, aes(x=year, y=missing)) +
 
 ```
 
-From the figure, we can see that the missing count is segmented roughly in decades. 1960s have the highest missing rate and the recent two years also miss many data. 1970s and 1980 have moderate high missing rate and 2000-2018 have the lowest missing rate. However, even the lowest missing count is more than twenty thousand, which accounts for almost 1/3 of the 60,543 records in our dataset. Therefore, we  choose to focus on the time period from 1971 to 2018 and investigate the missing values in each indicator.
+
+From the figure, we can see that the missing count is segmented roughly in decades. 1960s have the highest missing rate and the recent two years also miss many data. 1970s and 1980 have moderate high missing rate and 2000-2018 have the lowest missing rate.  It is interesting to see that the number of missing data drop sharply at around 1990. After looking into the data, the reason lies in the disassembly of the Soviet Union, which adds several countries that doesn't exist in the data set and lead to a fluctuation in records.However, even the lowest missing count is more 20 thousand, almost 1/3 of 60,543 records. Therefore, we concentrate on the time period 1971-2018 and we have to continue to check out the missing condition in each indicator.
+
 
 ```{r ch04-2}
 df_count_sel_miss_y <- df_countryData_selected %>% 

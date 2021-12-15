@@ -1,6 +1,7 @@
 # Results
 
-```{r ch05-01}
+```{r ch05-0}
+df_data <- read_csv("./WDI_csv/WDIData.csv") %>% select(!last_col())
 df_data_missing <- read_csv("./WDI_csv/WDI_Data_missing.csv")
 df_selected_country <- read_csv("./WDI_csv/selected_countries.csv")
 df_selected_indicator <- read_csv("./WDI_csv/selected_indicators.csv")
@@ -29,13 +30,6 @@ df_indicators <- df_data_missing %>%
 ```
 
 ## Does the increase of education attainment and better overall economic condition decrease the income inequality?
-
-```{r ch05-1-1}
-# name the chunks to avoid conflict
-
-```
-
-## Is there a correlation between greenhouse emissions and financial indicators, quality of life, etc?
 We first examine the emission of greenhouse gases per capita facet by the income group. We choose the year 2000 can draw a boxplot to see the overall distribution.
 ```{r ch05-2-1, fig.height=5, fig.width=10}
 df_2010_co2 <- merge(df_selected_country %>% select(c(1,2)), 
@@ -125,7 +119,8 @@ ggplot(df_co2_pc_group, aes(x=year, y=value, color=fct_rev(`Income Group`))) +
   ggtitle("Change of CO2 emission per capita")
 ```
 
-We can see that the trend is close to what is shown in the boxplot of CO2 emission per capita, which increases with the increase of income group. We can also observe that the emission per capita in high-income countries drops in the recent years, which may credits to the development of service section and the arise of environment-protect activities. On the other hand, the emission in upper-middle-income countries bursts after 2000, because of the rapid industrialization in these countries. It is interesting so see that the emission of lower-middle-income countries and low-income countries have a cross at about 1990, while the record of upper middle income countries drop sharply at the same time. After looking into the data, the reason lies in the dissolution of the Soviet Union, which adds several countries that doesn't exist in the data set and lead to a fluctuation in records.
+
+We can see that the trend is close to what is shown in the boxplot of CO2 emission per capita, which increases with the increase of income group. We can also observe that the emission per capita in high-income countries drops in the recent years, which may credits to the development of service section and the arise of environment-protect activities. On the other hand, the emission in upper-middle-income countries bursts after 2000, because of the rapid industrialization in these countries. Also, we can observe that the emission of lower-middle-income countries and low-income countries have a cross at about 1990, while the record of upper middle income countries drop sharply at the same time, because the additional data brought by the disassembly of Soviet Union.
 
 Similarly, we want to discover the annually change in CO2 emission per 2015 US$ by plotting a line graph.
 
