@@ -6,3 +6,5 @@ scripts.R
 WDICountry-Series.csv
 WDIData.csv
 WDI_csv/*
+docs/404.html
+docs/search_index.json
