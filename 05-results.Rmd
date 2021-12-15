@@ -197,9 +197,6 @@ df_renewable_energy%>%
     
 ```
 
-```{r}
-sum(is.na(df_panel$EN.ATM.CO2E.PC))
-```
 
 ```{r ch05-3-2, fig.width=10}
  
@@ -247,7 +244,37 @@ emission_and_renewable%>%
 
 ```
 
-```{r}
 
+```{r ch05-3-2-1, fig.width=10}
+
+
+g1<-df_panel %>% 
+  select(Year,`Country Name`,`Income Group`,EG.ELC.RNEW.ZS,EG.ELC.NUCL.ZS,EN.ATM.CO2E.KD.GD,EN.ATM.CO2E.PC)%>%
+  filter(Year >1990 & Year < 2016)%>%
+  drop_na()%>%
+  rename(other_percent = EG.ELC.RNEW.ZS,nuclear_percent = EG.ELC.NUCL.ZS,co2_per_usd = EN.ATM.CO2E.KD.GD,co2_capita = EN.ATM.CO2E.PC)%>%
+  mutate(renewable_percentage = (other_percent + nuclear_percent)/100)%>%
+  ggplot(aes(x = renewable_percentage,y = log(co2_per_usd)))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+  facet_grid(~`Income Group`)+
+  labs(x= "Electricity Production from Renewable Sources,(% of total)",y = "CO2 per 2015 USD,(log(kg))")+
+  ggtitle("Correlation Between Renewable Electricity Percentage and CO2 per 2015 USD")
+
+g2<-df_panel %>% 
+  select(Year,`Country Name`,`Income Group`,EG.ELC.RNEW.ZS,EG.ELC.NUCL.ZS,EN.ATM.CO2E.KD.GD,EN.ATM.CO2E.PC)%>%
+  filter(Year >1990 & Year < 2016)%>%
+  drop_na()%>%
+  rename(other_percent = EG.ELC.RNEW.ZS,nuclear_percent = EG.ELC.NUCL.ZS,co2_per_usd = EN.ATM.CO2E.KD.GD,co2_capita = EN.ATM.CO2E.PC)%>%
+  mutate(renewable_percentage = (other_percent + nuclear_percent)/100)%>%
+  ggplot(aes(x = renewable_percentage,y = log(co2_capita)))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+  facet_grid(~`Income Group`)+
+  labs(x= "Electricity Production from Renewable Sources,(% of total)",y = "CO2 per capita,(log(kg))")+
+  ggtitle("Correlation Between Renewable Electricity Percentage and CO2 per capita")
+
+gridExtra::grid.arrange(g1,g2)
+  
 ```
 
