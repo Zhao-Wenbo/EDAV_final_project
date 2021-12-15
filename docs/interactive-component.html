@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Interactive component | Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission</title>
+  <meta name="description" content="Chapter 6 Interactive component | Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Interactive component | Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Interactive component | Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission" />
+  
+  
+  
+
+<meta name="author" content="Wenbo Zhao, Junfeng Yan, Navjot Singh" />
+
+
+<meta name="date" content="2021-12-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="results.html"/>
+<link rel="next" href="conclusion.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Analysis on Income and Climate Change</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-year"><i class="fa fa-check"></i><b>4.1</b> Missing values by year</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-indicator"><i class="fa fa-check"></i><b>4.2</b> Missing values by indicator</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.3</b> Missing values by country</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis on Income Equality, Financial Indicator and Greenhouse Emission</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interactive-component" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<meta charset="utf-8">
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<input type="range" name="yearSlider" id=yearSlider min="1971" max="2018" value="2018" style="width:50%; background:#d3d3d3" oninput="this.nextElementSibling.value = this.value">
+<output>
+2018
+</output>
+<p id="country_name">
+Hover over a circle to identify the country…
+</p>
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz">
+
+</div>
+<script>
+
+const radius = 4;
+
+const color_lookup = {'Low income':'#A20000',
+                      'Lower middle income': '#A25300',
+                      'Upper middle income': '#14A200',
+                      'High income': '#0014A2'};
+
+// set the dimensions and margins of the graph
+const margin = {top: 30, right: 60, bottom: 60, left: 50},
+      width = 840 - margin.left - margin.right,
+      height = 680 - margin.top - margin.bottom;
+    
+// append the svg object to the body of the page
+const svg = d3.select("#my_dataviz")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// add X axis
+const x = d3.scaleLinear()
+            .domain([20, 100])
+            .range([0, width]);
+
+svg.append("g")
+   .attr("transform", `translate(0, ${height})`)
+   .call(d3.axisBottom(x));
+
+// add Y axis
+const y = d3.scaleLinear()
+            .domain([0, 140])
+            .range([height, 0]);
+
+svg.append("g")
+   .call(d3.axisLeft(y));
+
+// add the X gridlines
+svg.append("g")
+   .attr("class", "grid")
+   .attr("transform", "translate(0," + height + ")")
+   .call(d3.axisBottom(x)
+           .ticks(10)
+           .tickSize(-height)
+           .tickFormat(""))
+   .style("stroke", "lightgrey")
+   .style("stroke-opacity", 0.2)
+   .style("stroke-width", 1);
+
+// add the Y gridlines
+svg.append("g")         
+   .attr("class", "grid")
+   .call(d3.axisLeft(y)
+           .ticks(10)
+           .tickSize(-width)
+           .tickFormat(""))
+   .style("stroke", "lightgrey")
+   .style("stroke-opacity", 0.2)
+   .style("stroke-width", 1);
+
+// title
+svg.append('text')
+    .attr('x', width/2)
+    .attr('text-anchor', 'middle')
+    .style('font-family', 'Helvetica')
+    .style('font-size', 20)
+    .text('Primary Completion Rate vs Life Expectancy');
+    
+// X label
+svg.append('text')
+   .attr('x', width/2)
+   .attr('y', height + 40)
+   .attr('text-anchor', 'middle')
+   .style('font-family', 'Helvetica')
+   .style('font-size', 16)
+   .text('Primary Completion Rate (percentage)');
+
+// Y label
+svg.append('text')
+   .attr('x', 250)
+   .attr('y', -90)
+   .attr('text-anchor', 'middle')
+   .attr('transform', 'translate(60,' + height + ')rotate(-90)')
+   .style('font-family', 'Helvetica')
+   .style('font-size', 16)
+   .text('Life Expectancy (years)');
+
+// Add Legend
+var legend = svg.selectAll(".legend")
+                .data(["High income", "Upper middle income", "Lower middle income", "Low income"])
+                .enter()
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+      .attr("x", width - 18)
+      .attr("y", height - 95)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) { return color_lookup[d]} );
+
+legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", height - 88)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+d3.csv("https://raw.githubusercontent.com/Zhao-Wenbo/EDAV_final_project/main/interactive/data.csv").then(
+    function(csv) {
+
+    csv = csv.filter(function(row) {return row['life_exp'] !== 'NA'});
+    csv = csv.filter(function(row) {return row['primary_completion'] !== 'NA'});
+    csv = csv.filter(function(row) {return row['population'] !== 'NA'});
+
+    filtered_data = csv.filter(function(row) {return row['year'] === "2018"});
+
+    // Add dots
+    svg.append('g')
+       .selectAll("circle")
+       .data(filtered_data)
+       .join("circle")
+       .attr("cx", function (d) { return x(d.life_exp); })
+       .attr("cy", function (d) { return y(d.primary_completion); })
+       .attr("country", function (d) {return d.country; })
+       .attr("region", function (d) {return d.region; })
+       .attr("r", function (d) { return determineDotSize(d.population) })
+       .style("fill", function (d) { return color_lookup[d.income]; })
+       .on("mouseover", function(d, i) {
+          d3.select(this).attr("stroke", "black").attr("stroke-width", 5);
+          document.getElementById("country_name").innerHTML = this.getAttribute("country") + ' (' + this.getAttribute("region") + ')';
+       })
+       .on("mouseout", function(d, i) {
+            d3.select(this).attr("stroke", "transparent").attr("stroke-width", 0)
+            document.getElementById("country_name").innerHTML = "Hover over a circle to identify the country...";
+            d3.select("#temp").remove();
+       });
+
+    // Add Regression Line
+    var xData = filtered_data.map(function(d) { return d.life_exp; }).map(Number);
+    var yData = filtered_data.map(function(d) { return d.primary_completion; }).map(Number);
+
+    regression = leastSquaresEquation(xData, yData);
+
+    var line = d3.line()
+               .x(function(d) { return x(d.life_exp); })
+               .y(function(d) { return y(regression(d.life_exp)); });
+
+    svg.append("path")
+      .datum(filtered_data)
+      .attr("class", "line")
+      .attr("d", line)
+      .attr("id", "regress_line")
+      .style("fill", "none")
+      .style("stroke", "black")
+      .style("stroke-width", "4");
+
+    // Listen to the slider
+    d3.select("#yearSlider").on("change", function(d) {
+        year = parseInt(this.value)
+        filtered_data = csv.filter(function(row) { return parseInt(row['year']) === year; })
+
+        // update the chart
+        svg.selectAll("circle")
+           .data(filtered_data)
+           .attr("cx", function (d) { return x(d.life_exp); })
+           .attr("cy", function (d) { return y(d.primary_completion); })
+
+        var xData = filtered_data.map(function(d) { return d.life_exp; }).map(Number);
+        var yData = filtered_data.map(function(d) { return d.primary_completion; }).map(Number);
+
+        // Add regression line
+        regression = leastSquaresEquation(xData, yData);
+
+        var line = d3.line()
+                     .x(function(d) { return x(d.life_exp); })
+                     .y(function(d) { return y(regression(d.life_exp)); });
+
+        svg.select("#regress_line")
+           .datum(filtered_data)
+           .attr("class", "line")
+           .attr("d", line)
+    });
+
+    function determineDotSize(population) {
+        if (population > 100000000) {
+            return (radius * 3);
+        } else if (population > 20000000) {
+            return (radius * 2);
+        } else if (population < 5000000) {
+            return (radius & 0.5);
+        } else { return radius; }
+    }
+
+    function leastSquaresEquation(xData, yData) {
+        var ReduceAddition = function(prev, cur) { return prev + cur; };
+    
+        // finding the mean of Xaxis and Yaxis data
+        var xBar = xData.reduce(ReduceAddition) * 1.0 / xData.length;
+        var yBar = yData.reduce(ReduceAddition) * 1.0 / yData.length;
+
+        console.log(xBar)
+        console.log(yBar)
+
+        var SquareXX = xData.map(function(d) { return Math.pow(d - xBar, 2) }).reduce(ReduceAddition)
+        var ssYY = yData.map(function(d) { return Math.pow(d - yBar, 2); }).reduce(ReduceAddition);
+
+        var MeanDiffXY = xData.map(function(d, i) { return (d - xBar) * (yData[i] - yBar); }).reduce(ReduceAddition);
+        var slope = MeanDiffXY / SquareXX;
+        var intercept = yBar - (xBar * slope);
+
+        // returning regression function
+        return function(x) { return ((x * slope) + intercept); }
+  }
+
+})
+</script>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Zhao-Wenbo/EDAV_final_project/edit/main/06-interactive.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/Zhao-Wenbo/EDAV_final_project/blob/main/06-interactive.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
