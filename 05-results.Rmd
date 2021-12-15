@@ -8,6 +8,7 @@ df_selected_country$`Income Group` <- df_selected_country$`Income Group` %>%
   factor(levels=c("Low income", "Lower middle income", "Upper middle income", "High income"))
 tsize <- 15
 ```
+
 ```{r pivot dataset}
 # pivot the data from wide to long
 country_income_group <- df_selected_country %>%
@@ -28,7 +29,7 @@ df_indicators <- df_data_missing %>%
 ```
 
 ## Does the increase of education attainment and better overall economic condition decrease the income inequality?
-123
+
 ```{r ch05-1-1}
 # name the chunks to avoid conflict
 
