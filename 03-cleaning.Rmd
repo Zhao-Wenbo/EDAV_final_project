@@ -8,7 +8,7 @@ df_countries <- read_csv("./WDI_csv/WDICountry.csv") %>% select(!last_col())
 
 ```
 
-The importation of data is straight forward using `read_csv` function is R. We import `WDIData.csv`, `WDISeries.csv` and `WDICountry.csv` as dataframe `df_data`, `df_series` and `df_countries` respectively. Since the country name and series name are repeated to cover every combination, we treat them as factors to ease the operation.
+Importing the data is straight forward using `read_csv` function in R. We import `WDIData.csv`, `WDISeries.csv` and `WDICountry.csv` as dataframe `df_data`, `df_series` and `df_countries` respectively. Since the country name and series name are repeated to cover every combination, we treat them as factors to ease the operation.
 
 ```{r}
 df_data$`Country Name` <- as.factor(df_data$`Country Name`)
