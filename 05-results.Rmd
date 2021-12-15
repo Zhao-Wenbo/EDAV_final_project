@@ -268,7 +268,7 @@ ggplot(df_co2_pdollar_group, aes(x=year, y=value, color=fct_rev(`Income Group`))
 
 From the plot, we can reconfirm the boxplot for year 2010 that middle income countries emits more CO2 to produce unit GDP while high-income and low-income emits less. We also see a sharp spike at about 1990 in upper-middle and lower-middle-income countries, which also owes to the dissolution of the Soviet Union. In addition, except for the low-income countries, the world shows a steady drop of CO2 emission per dollar after 1990, owing to the fact that the development of technology can practically reduce the CO2 emission per product.
 
-## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?
+## Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2?
 
 We first investigate whether countries with higher income generate more electricity using renewable sources. Here, we define both nuclear sources and all other sources, which includes hydroelectric, solar, wind etc. as renewable sources for electricity production. The indicator we use are the percentage of electricity produced from nuclear sources and percentage of electricity produced from other sources. We then sum them to get the total percentage of electricity produced from renewable sources. We then aggregate them to yearly income group level by taking the mean. Moreover, we limit this analysis to the period between 1990 and 2016, since the indicator contains mostly missing values outside of this date range. 
 
