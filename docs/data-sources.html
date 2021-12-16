@@ -24,7 +24,7 @@
 <meta name="author" content="Wenbo Zhao, Junfeng Yan, Navjot Singh" />
 
 
-<meta name="date" content="2021-12-13" />
+<meta name="date" content="2021-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -85,8 +85,8 @@
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a corelation between greenhouse emissions and financial indicators, quality of life, etc?</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2 and NOx?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality-1"><i class="fa fa-check"></i><b>5.2</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -111,9 +111,19 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>As shown in the introduction, we need a wide variety of information, including economic, social welfare, education, greenhouse emissions, electricity production structure and so on. Therefore, we found an overall <a href="https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators">World Development Indicators</a> from the world bank. The data is a collection of development indicators by the world bank, compiled from officially-recognized international sources. It presents the most current and accurate global development data available, and includes national, regional and global estimates.</p>
-<p>The data set contains several files. <code>WDISeries.csv</code> contains the information about the what series are collected, with 1443 records and 20 columns. Each records the information of a series and includes the name of the series, a short code for it, the topic of the series, the source of the series and so on. <code>WDICountry.csv</code> contains the information of countries and regions that are recorded, with 265 rows and 30 columns. Each row represents to a country or region and records the information of its name, region, income group and so on. <code>WDIData.csv</code> contains all the data we may use for every country and every series stated above. Since there is an extra <code>Not classified</code> class for countries, there are in total <code>(265+1) * 1443 = 383838</code> records. Each row contains the country name and code, the series name and code, and the value since 1960 to 2020, which are 66 columns altogether.</p>
-<p>When matching the country name of <code>WDICountry.csv</code> and <code>WDIData.csv</code> we found that some names are not the same. There are two reasons that causes the difference: the first one is that <code>WDICountry.csv</code> uses the country name with non-ASCII characters, such <code>Côte d'Ivoire</code> and <code>Curaçao</code> while <code>WDIData.csv</code> transforms them into ASCII characters; another source is the minor difference in presenting country groups such as <code>WDICountry.csv</code> uses <code>IDA &amp; IBRD</code> while <code>WDIData.csv</code> uses <code>IDA &amp; IBRD countries</code>. We manually changed the names in <code>WDICountry.csv</code> to match those in <code>WDIData.csv</code>.</p>
+<p>A variety of information including economic, social welfare, education, greenhouse emissions, electricity production structure etc is needed to answer the questions we seek to answer. We use the comprehensive dataset of <a href="https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators">World Development Indicators</a> from the world bank that collects various development indicators from officially-recognized international sources. It presents the most current and accurate global development data at national, regional and global estimates.</p>
+<p>The data set contains several files:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>WDISeries.csv</code> contains the information about what series are collected, with 1443 records and 20 columns. Each record contains the information for a series including its name, a short identifier code for it, the topic of the series, its source and so on.</p></li>
+<li><p><code>WDICountry.csv</code> contains the information of countries and regions that are recorded, with 265 rows and 30 columns. Each row represents a country or region and presents its name, region, income group among several other identifiers.</p></li>
+<li><p><code>WDIData.csv</code> contains data for all attributes from <code>WDISeries.csv</code>, for all the countries listed in <code>WDICoutnry.csv</code>. After cleaning the data and removing missing values, we use data from this file for every country and every series stated above. Since there is an extra <code>Not classified</code> class for countries, there are in total <code>(265+1) * 1443 = 383838</code> records. Each row contains the country name and code, the series name and code, and the respective series value from 1960 to 2020. This constitutes a total of 66 columns altogether.</p></li>
+</ol>
+<p>When matching the country name of <code>WDICountry.csv</code> and <code>WDIData.csv</code> we found that some names are not the same. There are two reasons that cause this difference:</p>
+<ul>
+<li><p><code>WDICountry.csv</code> uses country names with non-ASCII characters, such as <code>Côte d'Ivoire</code> and <code>Curaçao</code> while <code>WDIData.csv</code> transforms them into ASCII characters</p></li>
+<li><p>There is a minor difference in presenting country groups. For example, <code>WDICountry.csv</code> uses <code>IDA &amp; IBRD</code> while <code>WDIData.csv</code> uses <code>IDA &amp; IBRD countries</code>.</p></li>
+</ul>
+<p>We manually changed the names in <code>WDICountry.csv</code> to match those in <code>WDIData.csv</code>.</p>
 
 </div>
             </section>
