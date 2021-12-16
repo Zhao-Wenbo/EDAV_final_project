@@ -33,7 +33,6 @@
   
 <link rel="prev" href="data-sources.html"/>
 <link rel="next" href="missing-values.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -76,16 +75,14 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
-<ul>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-year"><i class="fa fa-check"></i><b>4.1</b> Missing values by year</a></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-indicator"><i class="fa fa-check"></i><b>4.2</b> Missing values by indicator</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-values-by-country"><i class="fa fa-check"></i><b>4.3</b> Missing values by country</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality-1"><i class="fa fa-check"></i><b>5.2</b> Does the increase of education attainment and better overall economic condition decrease the income inequality?</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#does-the-increase-of-education-attainment-and-better-overall-economic-condition-increase-overall-well-being-of-a-country"><i class="fa fa-check"></i><b>5.1</b> Does the increase of education attainment and better overall economic condition increase overall well-being of a country?</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#is-there-a-co-relation-between-co2-emissions-and-financial-indicators-quality-of-life-etc"><i class="fa fa-check"></i><b>5.2</b> Is there a co-relation between CO2 emissions and financial indicators, quality of life, etc?</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2"><i class="fa fa-check"></i><b>5.3</b> Does richer countries use more renewable sources for electricity production and does this indeed reduce the emission of CO2?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
@@ -109,23 +106,10 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-transformation" class="section level1" number="3">
+<div id="data-transformation" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
-<pre><code>## Error: &#39;./WDI_csv/WDIData.csv&#39; does not exist in current working directory (&#39;/Users/navjot/projects/edav/final_project/github-2/EDAV_final_project&#39;).</code></pre>
-<pre><code>## Error: &#39;./WDI_csv/WDISeries.csv&#39; does not exist in current working directory (&#39;/Users/navjot/projects/edav/final_project/github-2/EDAV_final_project&#39;).</code></pre>
-<pre><code>## Error: &#39;./WDI_csv/WDICountry.csv&#39; does not exist in current working directory (&#39;/Users/navjot/projects/edav/final_project/github-2/EDAV_final_project&#39;).</code></pre>
 <p>Importing the data is straight forward using <code>read_csv</code> function in R. We import <code>WDIData.csv</code>, <code>WDISeries.csv</code> and <code>WDICountry.csv</code> as dataframe <code>df_data</code>, <code>df_series</code> and <code>df_countries</code> respectively. Since the country name and series name are repeated to cover every combination, we treat them as factors to ease the operation.</p>
-<pre><code>## Error in is.factor(x): object &#39;df_data&#39; not found</code></pre>
-<pre><code>## Error in is.factor(x): object &#39;df_data&#39; not found</code></pre>
-<pre><code>## Error in is.factor(x): object &#39;df_data&#39; not found</code></pre>
-<pre><code>## Error in is.factor(x): object &#39;df_data&#39; not found</code></pre>
 <p>First, as stated in the previous section, we match the names of series and countries in <code>df_series</code> and <code>df_countries</code> to that in <code>df_data</code> to avoid any potential mismatching issues.</p>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df_series&#39; not found</code></pre>
-<pre><code>## Error in eval_tidy(pair$lhs, env = default_env): object &#39;df_series_name&#39; not found</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;modified_df_series_name&#39; not found</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df_countries&#39; not found</code></pre>
-<pre><code>## Error in eval_tidy(pair$lhs, env = default_env): object &#39;df_countries_names&#39; not found</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;modified_df_countries_names&#39; not found</code></pre>
 <p>After that, since there are too many kinds of series included in the data set, we put our focus on the series with <code>Topic</code> in the following list that are related to our research:</p>
 <ul>
 <li>Economic Policy &amp; Debt: National accounts: Adjusted savings &amp; income</li>
@@ -139,14 +123,7 @@
 <li>Poverty: Income distribution</li>
 <li>Poverty: Poverty rates</li>
 </ul>
-<pre><code>## Error in filter(., Topic %in% selected_topics): object &#39;df_series&#39; not found</code></pre>
 <p>In addition, since there are both country-wise and region-wise data in <code>df_data</code>, we want to concentrate on the country-wise data first, therefore we extract country data in the selected topic as <code>df_countryData_selected</code>. The reduced data set has 217 countries and 279 selected indicators, which leads to a total of <code>217 * 279 = 60543</code> rows and remains 66 columns of data.</p>
-<pre><code>## Error in filter(., Topic %in% selected_topics): object &#39;df_series&#39; not found</code></pre>
-<pre><code>## Error in filter(., !is.na(Region)): object &#39;df_countries&#39; not found</code></pre>
-<pre><code>## Error in filter(., `Indicator Name` %in% df_series_selected$`Indicator Name`): object &#39;df_data&#39; not found</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;df_countryData_selected&#39; not found</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;df_only_countries&#39; not found</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;df_series_selected&#39; not found</code></pre>
 
 </div>
             </section>

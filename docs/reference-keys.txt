@@ -6,10 +6,8 @@ missing-values-by-year
 missing-values-by-indicator
 missing-values-by-country
 results
-does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality
-is-there-a-corelation-between-greenhouse-emissions-and-financial-indicators-quality-of-life-etc
-does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2-and-nox
+does-the-increase-of-education-attainment-and-better-overall-economic-condition-increase-overall-well-being-of-a-country
+is-there-a-co-relation-between-co2-emissions-and-financial-indicators-quality-of-life-etc
+does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2
 interactive-component
 conclusion
-does-the-increase-of-education-attainment-and-better-overall-economic-condition-decrease-the-income-inequality-1
-does-richer-countries-use-more-renewable-sources-for-electricity-production-and-does-this-indeed-reduce-the-emission-of-co2
