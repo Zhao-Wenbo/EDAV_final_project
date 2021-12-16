@@ -113,7 +113,7 @@ ggplot(df_life_edu_group) +
   ggtitle("Change of primary completion rate (line, %)\nand life expectancy (dot, years)")
 ```
 
-From the plot we can that higher income groups have much higher primary completion rate and life expectancy. High income and upper middle income countries maintains near 100% primary completion rate our window of study, while primary complete rate in lower middle and low income countries grow rapidly thanks to the increasing focus of fundamental education in these areas.
+From the plot we can see that higher income groups have much higher primary completion rate and life expectancy. High income and upper middle income countries maintains near 100% primary completion rate our window of study, while primary complete rate in lower middle and low income countries grow rapidly thanks to the increasing focus of fundamental education in these areas.
 
 
 ```{r pivot dataset}
